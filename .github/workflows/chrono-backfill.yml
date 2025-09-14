@@ -10,7 +10,7 @@ on:
         default: Heatmap Bot
       author_email:
         required: false
-        default: ${{  github.actor  }}@users.noreply.github.com
+        default: ${{github.actor}}@users.noreply.github.com
       dates_json:
         required: true
       message:
@@ -22,21 +22,21 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@vv4
         with:
           fetch-depth: 0
-          ref: ${{  inputs.branch  }}
+          ref: ${{inputs.branch}}
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - name: Backfill commits
         shell: bash
         env:
-          DATES_JSON: ${{  inputs.dates_json  }}
-          BRANCH: ${{  inputs.branch  }}
-          AUTHOR_NAME: ${{  inputs.author_name  }}
-          AUTHOR_EMAIL: ${{  inputs.author_email  }}
-          MSG_PREFIX: ${{  inputs.message  }}
+          DATES_JSON: ${{inputs.dates_json}}
+          BRANCH: ${{inputs.branch}}
+          AUTHOR_NAME: ${{inputs.author_name}}
+          AUTHOR_EMAIL: ${{inputs.author_email}}
+          MSG_PREFIX: ${{inputs.message}}
         run: |
           set -e
           git config user.name "$AUTHOR_NAME"
