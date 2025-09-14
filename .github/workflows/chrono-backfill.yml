@@ -10,7 +10,7 @@ on:
         default: Heatmap Bot
       author_email:
         required: false
-        default: ${{github.actor}}@users.noreply.github.com
+        default: '${{github.actor}}@users.noreply.github.com'
       dates_json:
         required: true
       message:
@@ -22,7 +22,7 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@vv4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{inputs.branch}}
