@@ -10,7 +10,6 @@ on:
         default: Heatmap Bot
       author_email:
         required: false
-        default: '${{github.actor}}@users.noreply.github.com'
       dates_json:
         required: true
       message:
@@ -36,11 +35,14 @@ jobs:
           BRANCH: ${{inputs.branch}}
           AUTHOR_NAME: ${{inputs.author_name}}
           AUTHOR_EMAIL: ${{inputs.author_email}}
+          DEFAULT_NO_REPLY: ${{github.actor}}@users.noreply.github.com
           MSG_PREFIX: ${{inputs.message}}
         run: |
           set -e
-          git config user.name "$AUTHOR_NAME"
-          git config user.email "$AUTHOR_EMAIL"
+          NAME="${AUTHOR_NAME:-Heatmap Bot}"
+          EMAIL="${AUTHOR_EMAIL:-$DEFAULT_NO_REPLY}"
+          git config user.name "$NAME"
+          git config user.email "$EMAIL"
           echo "$DATES_JSON" > dates.json
           node -e "const fs=require("fs"); const d=JSON.parse(fs.readFileSync("dates.json","utf8")); console.log(d.join("\n"));" > dates.txt
           while IFS= read -r ymd; do
